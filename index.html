@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stick RPG 1</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #game {
+      border: 2px solid #444;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      background: #222;
+      border-radius: 10px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    #playerImg {
+      width: 120px;
+      height: 120px;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔥 Stick RPG 1 🔥</h1>
+
+  <div id="menu">
+    <button onclick="novoJogo()">Novo Jogo</button>
+    <button onclick="carregarJogo()">Carregar Jogo</button>
+  </div>
+
+  <div id="game" style="display:none;">
+    <h2 id="classeEscolhida"></h2>
+    <img id="playerImg" src="" alt="Personagem">
+    <p id="status"></p>
+    <p id="biomaAtual"></p>
+    <p id="monstroAtual"></p>
+
+    <button onclick="atacar()">Atacar</button>
+    <button onclick="viajar()">Viajar</button>
+    <button onclick="salvarJogo()">Salvar</button>
+  </div>
+
+  <script>
+    const biomas = ["Floresta", "Deserto", "Gelo", "Lava", "Sombrio"];
+    let monstros = {};
+    let jogador = {};
+    let monstro = {};
+
+    // Gera 100 monstros por bioma
+    function gerarMonstros() {
+      biomas.forEach(b => {
+        monstros[b] = [];
+        for (let i = 1; i <= 100; i++) {
+          monstros[b].push({
+            nome: `${b} Monstro #${i}`,
+            hp: Math.floor(Math.random() * 80) + 20,
+            ataque: Math.floor(Math.random() * 10) + 5
+          });
+        }
+      });
+    }
+
+    gerarMonstros();
+
+    function novoJogo() {
+      let classe = prompt("Escolha sua classe: Guerreiro, Mago ou Arqueiro").toLowerCase();
+      let imagem = "";
+      if (classe === "guerreiro") imagem = "https://stickfigure-gif.s3.amazonaws.com/warrior.png";
+      else if (classe === "mago") imagem = "https://stickfigure-gif.s3.amazonaws.com/mage.png";
+      else imagem = "https://stickfigure-gif.s3.amazonaws.com/archer.png";
+
+      jogador = {
+        nome: classe.charAt(0).toUpperCase() + classe.slice(1
